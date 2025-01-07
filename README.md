@@ -13,5 +13,3 @@ $ npm run build -- --preview # 프리뷰 빌드
 
 ## ejs
 ejs 템플릿 엔진을 사용한 프리뷰 Boiler-plate 입니다.
-
-[PREVIEW](https://babelloper.github.io/dist/index.html)
