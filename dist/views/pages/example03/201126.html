@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>EJS-BOILERPLATE - BODYFRIEND</title>
+    <meta name="description" content="EJS-BOILERPLATE">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="/images/icons/favicon.ico">
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+    <link rel="stylesheet" href="/styles/common/common.css">
+  </head>
+  <body id="EJS-BOILERPLATE">
+    <script>
+      {
+        let a = 2;
+        if (a > 1) {
+          console.log(b); // undefined
+          let b = a * 3;
+          console.log(b); // 6
+        } else {
+          let b = a / 3;
+          console.log(b);
+        }
+        console.log(b); // undefined
+      }
+      console.log(a); // undefined
+
+
+      {
+        var a = 2;
+        if (a > 1) {
+          var b = a * 3;
+          console.log(b); // 6
+        } else {
+          var b = a / 3;
+          console.log(b);
+        }
+        console.log(b); //6
+      }
+      console.log(a); // 2
+
+    </script>
+    <script src="/scripts/libs/jquery/jquery.min.js"></script>
+    <script src="/scripts/common/common.js"></script>
+  </body>
+</html>
