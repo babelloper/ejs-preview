@@ -1,0 +1,34 @@
+<meta charset="<%= page.charset || 'utf-8' %>">
+
+<% if (site.xUaCompatible || page.xUaCompatible) { %>
+  <meta http-equiv="x-ua-compatible" content="<%= site.xUaCompatible || page.xUaCompatible %>">
+<% } %>
+
+<title><%= (page.title ? page.title + ' - ' : '' ) + site.siteName %></title>
+
+<% if (page.description) { %>
+  <meta name="description" content="<%= $.truncate(page.description, 300) %>">
+<% } %>
+
+<% var viewport = page.viewport || site.viewport; %>
+<% if (viewport && Object.keys(viewport).length) { %>
+  <meta name="viewport" content="<%- $.serialize(viewport) %>">
+<% } %>
+
+<link rel="shortcut icon" href="/images/icons/favicon.ico">
+
+<% if (site.formatDetection || page.formatDetection) { %>
+  <meta name="format-detection" content="<%= $.serialize(page.formatDetection || site.formatDetection) %>">
+<% } %>
+
+<% if (page.meta && page.meta.constructor === Object && Object.keys(page.meta).length) { %>
+  <% Object.keys(page.meta).forEach(function(name) { %>
+    <meta name="<%- name %>" content="<%= page.meta[name] %>">
+  <% }) %>
+<% } %>
+
+<% if (typeof page.styles !== 'undefined' && page.styles instanceof Array) { %>
+  <% page.styles.forEach(function(cssPath) { %>
+    <link rel="stylesheet" href="<%= cssPath %>">
+  <% }) %>
+<% } %>

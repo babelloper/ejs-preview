@@ -1,0 +1,111 @@
+---
+pageName: EJS-BOILERPLATE
+title: EJS-BOILERPLATE
+description: EJS-BOILERPLATE
+pageId: EJS-BOILERPLATE
+charset: utf-8
+styles:
+  - /styles/common/common.css
+scripts:
+  - /scripts/libs/jquery/jquery.min.js
+  - /scripts/common/common.js
+indexGroup: example02
+state:
+  default: section 0 ~ 1
+---
+
+<!doctype html>
+<html lang="<%= lang %>">
+  <head>
+    <%- include('/components/_head'); %>
+  </head>
+
+  <body id="<%= page.pageId %>">
+
+    <script>
+      //함수스코프 / 블록스코프
+      {
+        let a = 10
+        {
+          let a = 20
+          console.log(a)  //{} 블럭을 감싸고 있는 영역안에서 콘솔에 값에 호이스팅을 한다.
+        }
+        console.log(a)    //let a= 10 {} 블럭을 감싸고 있는 영역을 포함하고 바로 아래 콘솔에 값에 호이스팅을 한다.
+      }
+      console.log(a)      //a의 존재를 몰라 error 가 난다.
+
+
+
+    {
+      let a = 10
+    {
+      let a = 20
+      console.log(a) //20
+    }
+      console.log(a) //10
+    }
+    console.log(a) // defined
+    //TDZ : Temporal Dead Zone (임시사각지대)
+    //1. 호이스팅
+    // 기존 var: 변수명만 위로 끌어올리고
+    // undefinded 를 할당한다
+
+    (function () {
+      var a = 10;
+      (function () {
+        console.log(a);
+        var a = 20;
+      })();
+        console.log(a);
+    })();
+    console.log(a);
+
+
+    //호이스팅........
+    if (true) {
+      let a = 10
+      if (true) {
+        console.log(a);
+        const a= 20;
+        console.log(a);
+      }
+
+    }
+    console.log(a)
+
+    //this
+    var value = 0
+    var obj = {
+      value: 1,
+      setValue: function () {
+        this.value = 2; // this: obj -> obj.value = 2
+        (function () {
+          this.value = 3 //함수를 실행하기때문에 window 객체로 본다. window.value = 3
+        })();
+      }
+    }
+
+    //내부에서 this 는 공통으로 쓰고싶다면.
+    var value = 0
+    var obj = {
+      value: 1,
+      setValue: function () {
+        let a = 10;
+        this.value = 2; // this: obj -> obj.value = 2
+        {
+          let a = 20;
+          this.value = 3 //함수를 실행하기때문에 window 객체로 본다. window.value = 3
+        }
+      }
+    }
+
+    obj.setValue()
+    console.log(value)
+    console.log(obj.value)
+    </script>
+
+
+
+  <%- include('/components/_scripts'); %>
+  </body>
+</html>

@@ -1,0 +1,80 @@
+---
+pageName: EJS-BOILERPLATE
+title: EJS-BOILERPLATE
+description: EJS-BOILERPLATE
+pageId: EJS-BOILERPLATE
+charset: utf-8
+styles:
+  - /styles/common/common.css
+scripts:
+  - /scripts/libs/jquery/jquery.min.js
+  - /scripts/common/common.js
+indexGroup: example01
+state:
+  default: section 0 ~ 1
+---
+
+<!doctype html>
+<html lang="<%= lang %>">
+  <head>
+    <%- include('/components/_head'); %>
+  </head>
+
+  <body id="<%= page.pageId %>">
+    <script>
+      //1
+      if (true) {
+        let a = 10
+        if (true) {
+          console.log(a) //not
+          const a = 20
+        }
+        console.log(a)
+      }
+      console.log(a)
+
+
+      if (true) {
+        var a = 10
+        if (true) {
+          const a = 20
+          console.log(a) //20
+        }
+        console.log(a) //10
+      }
+      console.log(a) //10
+
+
+
+      //2
+      {
+        let a = 2;
+        if (a > 1) {
+          let b = a * 3;
+          console.log(b);
+        } else {
+          let b = a / 3;
+          console.log(b);
+        }
+        console.log(b); //not
+      }
+      console.log(a);
+
+
+      {
+        var a = 2;
+        if (a > 1) {
+          var b = a * 3;
+          console.log(b); //6
+        } else {
+          let b = a / 3;
+          console.log(b);
+        }
+        console.log(b); //6
+      }
+      console.log(a); //2
+    </script>
+
+    <%- include('/components/_scripts'); %>
+  </body>
+</html>

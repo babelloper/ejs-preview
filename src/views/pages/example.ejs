@@ -1,0 +1,28 @@
+---
+pageName: EJS-BOILERPLATE
+title: EJS-BOILERPLATE
+description: EJS-BOILERPLATE
+pageId: EJS-BOILERPLATE
+charset: utf-8
+styles:
+  - /styles/common/common.css
+scripts:
+  - /scripts/pages/example.js
+  - /scripts/libs/jquery/jquery.min.js
+  - /scripts/common/common.js
+indexGroup: example01
+state:
+  default: section 0 ~ 1
+---
+
+<!doctype html>
+<html lang="<%= lang %>">
+  <head>
+    <%- include('/components/_head'); %>
+  </head>
+
+  <body id="<%= page.pageId %>">
+    Hello! EJS-BOILERPLATE
+    <%- include('/components/_scripts'); %>
+  </body>
+</html>
