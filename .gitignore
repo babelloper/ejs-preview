@@ -10,7 +10,8 @@ npm-debug.log*
 # Dependency directory
 node_modules
 
-# Destination folder dist
+# Destination folder
+dist
 
 # Editor - Sublime Text
 *.sublime-workspace
