@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>EJS-BOILERPLATE - BODYFRIEND</title>
+    <meta name="description" content="EJS-BOILERPLATE">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="shortcut icon" href="/images/icons/favicon.ico">
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+    <link rel="stylesheet" href="/styles/common/common.css">
+    <script>
+      // 함수 스코프
+      // Scope : 범위, 유효공간, 살 수 있는 공간, 허용공간, 허용범위..
+      // 함수 스코프 : 함수에 의해서 생기는 범위. 변수의 유효범위
+
+      // 블락 스코프 : block Scope - 블락에 의해 생기는 유효범위.
+
+      // { }에 의해서 변수의 유효범위가 결정된다.
+
+
+
+      // 1. let, const
+      {
+        let a = 10 {
+          let a = 20
+          console.log(a) // 20
+        }
+        console.log(a) // 10
+      }
+      // console.log(a)  // a is not defined
+
+      (function() {
+        var b = 10;
+        (function() {
+          var b = 20;
+          console.log(b); // 20
+        })();
+        console.log(b); // 10
+      })();
+      // console.log(b)  // a is not defined
+
+
+      function hasValue(p) {
+        // console.log(v)  // v is not defined
+        if (p) {
+          var v = 'blue'
+          console.log(v) // blue
+        } else {
+          var v = 'red'
+          console.log(v) // 안나옴
+        }
+        console.log(v) // blue
+      }
+      hasValue(10)
+
+      // # hasValue 왜 defined
+      // function hasValue (p) {
+      //     console.log(v)  // v is not defined
+      //     if (p) {
+      //         let v = 'blue'
+      //         console.log(v)
+      //     } else {
+      //         let v = 'red'
+      //         console.log(v)
+      //     }
+      //     console.log(v)
+      // }
+      // hasValue(10)  // v is not defined
+
+
+
+      // =============================================================================================
+
+
+
+
+      // if문, for문, while문, switch-case문 : '문단'. 결과를 리턴하지 않는다(안에 내용을 실행하고 끝)
+      // (10 + 20), 'abc' + 'def', a() : '식' expression. 값이 될 수 있는 경우. (결과를 리턴함)
+      // 값 (결과)
+
+
+
+      // 2. hoisting : 변수 및 함수 선언이 물리적으로 작성한 코드의 상단으로 옮겨지는 것(실제로는 그렇지 않음)
+      // 호이스팅이 된다면...
+      // 기존 var :
+      // 변수명만 위로 끌어올리고
+      // 값이 없으므로 undefined를 할당한다.
+      // c: undefined
+
+      if (true) {
+        var c = 10;
+        (function() {
+          // console.log(c);    // 블락 스코프 안에서는 c 값을 모르므로 상위에서 값을 찾는다?? 10
+          // but 결과 : undefined
+          const c = 20
+        })();
+        console.log(c) // 10
+      }
+      // console.log(c)  // c is not defined
+
+
+      // 호이스팅이 안된다면...
+      // let, const :
+      // 변수명만 위로 끌어올리고
+      // 끝(호이스팅 안됨)
+      // d: d is not defined
+
+      if (true) {
+        let d = 10
+        if (true) {
+          // console.log(d)
+          // 결과 : reference Error : d is not defined
+          const d = 20
+        }
+        console.log(d)
+      }
+      // console.log(d)
+
+      // TDZ: Temporal Dead Zone (임시 사망지역, 임시 사각지대 - Ecma script에서 정의한 개념은 아님)
+      // TDZ는 실제로 그 변수를 호출한 위치까지 오기전까지는 변수를 호출할 수 없다
+      // const c = 20 이전에는 console.log(c) : TDZ 로 호출 불가
+
+
+
+
+      // =============================================================================================
+
+
+
+
+      // 3. this
+      var value = 0
+      var obj = {
+        value: 1,
+        setValue: function() {
+          this.value = 2; // this:obj -> obj.value = 2;
+          (function() {
+            this.value =
+              3 // this:window (바로 함수를 실행할때는 전역변수로 window를 가져온다) -> window.value = 3;
+            // 전역 value = 3
+          })()
+
+          var a = function() {
+            this.value = 3;
+          }
+          a.call(this); // call(this를 함수안에 넘겨주는 방법)
+        }
+      }
+      obj.setValue()
+      console.log(value); // 3
+      console.log(obj.value) // 2
+
+
+
+
+
+      // =============================================================================================
+
+
+
+
+
+      // 4. 모든 문 형태에 적용
+      var sum = 0;
+      for (let i = 1; i <= 10; i++) {
+        sum += 1
+      }
+      console.log(sum)
+      // console.log(i) // i is not defined
+
+
+
+      {
+        let m = 2
+        if (m > 1) {
+          let q = m * 3
+          console.log(q) // 2 * 3 = 6
+        } else {
+          let q = m / 3
+          console.log(q)
+        }
+        // console.log(q)  // referance error : q is not defined
+      }
+      // console.log(m)  // referance error : m is not defined
+
+
+      // [X]
+      if (Math.random() < 0.5) {
+        let j = 0
+        console.log(j)
+      } else {
+        let j = 1
+        console.log(j)
+      }
+      // console.log(j)
+
+
+
+      let t = Math.ceil(Math.random() * 3) // = 2..
+      switch (t) {
+        case 1: { // t가 1이면 이 케이스 실행
+          let r = 10
+          console.log(t + r)
+          break
+        }
+        case 2: {
+          let r = 20
+          console.log(t + r) // 22
+          break
+        }
+        case 3: {
+          let r = 30
+          console.log(t + r)
+          break
+        }
+      }
+      // console.log(t, r)   // t = 2.. / r은 referance error
+
+    </script>
+  </head>
+  <body id="EJS-BOILERPLATE">
+    <script src="/scripts/libs/jquery/jquery.min.js"></script>
+    <script src="/scripts/common/common.js"></script>
+  </body>
+</html>
